@@ -3,20 +3,6 @@ import pandas as pd
 import numpy as np
 
 
-# 1   Start Time     3512 non-null   datetime64[ns]
-#  2   End Time       3512 non-null   object        
-#  3   Trip Duration  3512 non-null   int64         
-#  4   Start Station  3512 non-null   object        
-#  5   End Station    3512 non-null   object        
-#  6   User Type      3512 non-null   object        
-#  7   Gender         3415 non-null   object        
-#  8   Birth Year     3415 non-null   float64       
-#  9   month          3512 non-null   int32         
-#  10  day_of_week    3512 non-null   object   
-
-
-
-
 CITY_DATA = { 'chicago': 'chicago.csv',
               'new york': 'new_york_city.csv',
               'washington': 'washington.csv' }
@@ -197,10 +183,15 @@ def main():
         time_stats(df)
         station_stats(df)
         trip_duration_stats(df)
-        # pd.set_option('display.max_columns', None)
-        # print(df)
         user_stats(df)
 
+        view_data = input('\nWould you like to view 5 rows of individual trip data? Enter yes or no:\n').lower()
+        start_loc = 0
+        pd.set_option('display.max_columns', None)
+        while view_data == 'yes':
+            print(df.iloc[start_loc:start_loc+5])
+            start_loc += 5
+            view_data = input("Do you wish to continue? Enter yes or no: ").lower()
         restart = input('\nWould you like to restart? Enter yes or no.\n')
         if restart.lower() != 'yes':
             break
